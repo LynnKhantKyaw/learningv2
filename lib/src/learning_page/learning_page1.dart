@@ -65,7 +65,10 @@ class _LearningPage1State extends State<LearningPage1> {
                       ),
                     ),
                     Container(
-                      color: const Color.fromARGB(200, 113, 101, 45),
+                      decoration: shadowDecorationWithBorderColor(
+                          const Color.fromARGB(200, 113, 101, 45),
+                          const Color.fromARGB(180, 113, 101, 45),
+                          12),
                       margin: const EdgeInsets.only(top: 60),
                       width: MediaQuery.of(context).size.width * 0.5,
                       height: MediaQuery.of(context).size.height * 0.54,
@@ -117,7 +120,7 @@ class _LearningPage1State extends State<LearningPage1> {
                   decoration: shadowDecorationWithBorderColor(
                       const Color.fromARGB(200, 113, 101, 45),
                       const Color.fromARGB(200, 113, 101, 45),
-                      4),
+                      12),
                   child: Stack(
                     children: [
                       GestureDetector(
@@ -263,7 +266,7 @@ class _LearningPage1State extends State<LearningPage1> {
         decoration: shadowDecorationWithBorderColor(
             const Color.fromARGB(180, 0, 0, 0),
             const Color.fromARGB(180, 113, 101, 45),
-            4),
+            12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

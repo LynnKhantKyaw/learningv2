@@ -136,7 +136,7 @@ class _LearningPage5State extends State<LearningPage5> {
         decoration: shadowDecorationWithBorderColor(
             const Color.fromARGB(180, 0, 0, 0),
             const Color.fromARGB(180, 113, 101, 45),
-            4),
+            12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

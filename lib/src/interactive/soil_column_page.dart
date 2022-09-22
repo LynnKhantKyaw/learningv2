@@ -308,7 +308,7 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                   decoration: shadowDecorationWithBorderColor(
                       const Color.fromARGB(200, 113, 101, 45),
                       const Color.fromARGB(200, 113, 101, 45),
-                      4),
+                      12),
                   child: Scrollbar(
                     child: SingleChildScrollView(
                         child: Text(

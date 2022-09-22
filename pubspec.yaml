@@ -21,6 +21,7 @@ dependencies:
   video_player: ^2.4.7
   flutter_multi_select_items: ^0.4.2
   flutter_riverpod: ^2.0.0-dev.9
+  audio_video_progress_bar: ^0.10.0
 
 dev_dependencies:
   flutter_test:
