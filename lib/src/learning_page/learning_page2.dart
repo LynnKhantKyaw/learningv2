@@ -100,13 +100,16 @@ class _LearningPage2State extends State<LearningPage2> {
                           trackVisibility: true,
                           thumbVisibility: true,
                           child: SingleChildScrollView(
-                              child: Text(
-                            txt,
-                            style: TextStyle(
-                                height: 1.7,
-                                color: Colors.white,
-                                fontSize:
-                                    Responsive.isMobile(context) ? 16 : 19),
+                              child: Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Text(
+                              txt,
+                              style: TextStyle(
+                                  height: 1.7,
+                                  color: Colors.white,
+                                  fontSize:
+                                      Responsive.isMobile(context) ? 16 : 19),
+                            ),
                           )),
                         ),
                       ),
@@ -189,6 +192,8 @@ class _LearningPage2State extends State<LearningPage2> {
                     height: MediaQuery.of(context).size.height * 0.98,
                     child: PhotoView(
                       imageProvider: AssetImage(imageChoosen),
+                      backgroundDecoration:
+                          const BoxDecoration(color: Colors.white),
                     ),
                   ),
                 ),

@@ -20,6 +20,7 @@ class _LearningPage1State extends State<LearningPage1> {
   bool imagepopUpVisible = false;
   String imageChoosen = "assets/images/l1.png";
   final player = justAudio.AudioPlayer();
+  ScrollController scrollController = ScrollController();
   String txt =
       "ကမ္ဘာမြေရဲ့ တစ်နေရာနဲ့ တစ်နေရာ၊ လယ်ကွင်းတစ်ခုရဲ့ တစ်နေရာနဲ့ တစ်နေရာ‌ပေါ် မူတည်ပြီး မြေဆီလွှာ‌တွေက ကွဲပြားမှု ရှိပါတယ်။ သူတို့ ဘယ်လိုဖြစ်‌ပေါ်လာလဲဆိုတဲ့ အပေါ်မူတည်ပြီးတော့လည်း မြေဆီလွှာတွေက ကွဲပြားမှုရှိကြပါတယ်။ မြေဆီလွှာကို ဖြစ်ပေါ်စေတဲ့ အကြောင်းအရာတွေကြောင့် မတူကွဲပြားတဲ့ မြေဆီလွှာအမျိုးမျိုး ဖြစ်ပေါ်လာရပါတယ်။ ";
 
@@ -140,18 +141,21 @@ class _LearningPage1State extends State<LearningPage1> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 40),
+                        padding: const EdgeInsets.only(right: 36),
                         child: Scrollbar(
                           trackVisibility: true,
                           thumbVisibility: true,
                           child: SingleChildScrollView(
-                              child: Text(
-                            txt,
-                            style: TextStyle(
-                                height: 1.7,
-                                color: Colors.white,
-                                fontSize:
-                                    Responsive.isMobile(context) ? 16 : 19),
+                              child: Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Text(
+                              txt,
+                              style: TextStyle(
+                                  height: 1.7,
+                                  color: Colors.white,
+                                  fontSize:
+                                      Responsive.isMobile(context) ? 16 : 19),
+                            ),
                           )),
                         ),
                       ),
@@ -170,26 +174,29 @@ class _LearningPage1State extends State<LearningPage1> {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Container(
-                height: 42,
-                width: 42,
-                margin: const EdgeInsets.only(bottom: 12, right: 20),
-                decoration: shadowDecoration(Colors.white),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.black,
-                    size: 20,
+              child: Visibility(
+                visible: !imagepopUpVisible,
+                child: Container(
+                  height: 42,
+                  width: 42,
+                  margin: const EdgeInsets.only(bottom: 12, right: 20),
+                  decoration: shadowDecoration(Colors.white),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                    onPressed: () {
+                      if (player.playing) {
+                        player.stop();
+                      }
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => const LearningPage2())));
+                    },
                   ),
-                  onPressed: () {
-                    if (player.playing) {
-                      player.stop();
-                    }
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const LearningPage2())));
-                  },
                 ),
               ),
             )
@@ -214,13 +221,13 @@ class _LearningPage1State extends State<LearningPage1> {
       child: Container(
           width: MediaQuery.of(context).size.width * 0.58,
           margin: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.13,
+              top: MediaQuery.of(context).size.height * 0.14,
               bottom: Responsive.isMobile(context)
                   ? 40
                   : MediaQuery.of(context).size.height * 0.26),
           decoration: shadowDecorationWithBorderColor(
-              const Color.fromARGB(255, 182, 184, 216),
-              const Color.fromARGB(255, 182, 184, 216),
+              const Color.fromARGB(255, 255, 216, 95),
+              const Color.fromARGB(255, 255, 216, 95),
               12),
           child: Stack(
             children: [
@@ -241,15 +248,29 @@ class _LearningPage1State extends State<LearningPage1> {
                   ),
                 ),
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.8,
-                padding: const EdgeInsets.only(
-                    top: 30, left: 30, bottom: 16, right: 50),
-                child: SingleChildScrollView(
-                  child: Text(
-                    txt,
-                    textAlign: TextAlign.left,
-                    style: const TextStyle(height: 1.8, fontSize: 17),
+              Padding(
+                padding: const EdgeInsets.only(right: 60, top: 30, bottom: 20),
+                child: Scrollbar(
+                  controller: scrollController,
+                  trackVisibility: true,
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    child: Container(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        margin: const EdgeInsets.only(right: 30),
+                        padding: const EdgeInsets.only(
+                            left: 30, bottom: 16, right: 50),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: Text(
+                            txt,
+                            style: TextStyle(
+                                height: 1.8,
+                                color: Colors.black,
+                                fontSize:
+                                    Responsive.isMobile(context) ? 16 : 19),
+                          ),
+                        )),
                   ),
                 ),
               ),
@@ -277,6 +298,8 @@ class _LearningPage1State extends State<LearningPage1> {
                     height: MediaQuery.of(context).size.height * 0.98,
                     child: PhotoView(
                       imageProvider: AssetImage(imageChoosen),
+                      backgroundDecoration:
+                          const BoxDecoration(color: Colors.white),
                     ),
                   ),
                 ),

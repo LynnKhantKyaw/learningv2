@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:learning/src/interactive/quizz_page1.dart';
+import 'package:learning/src/interactive/soil_column_page.dart';
 import 'package:learning/src/learning_page/components/background_page.dart';
 import 'package:learning/src/learning_page/components/section_header.dart';
-import 'package:learning/src/learning_page/learning_page5.dart';
 import 'package:learning/src/responsive.dart';
 import 'package:learning/tool_widgets.dart';
 
@@ -690,7 +690,8 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) => const LearningPage5())));
+                                builder: ((context) =>
+                                    const SoilColumnPage())));
                       },
                     ),
                   ),
@@ -716,7 +717,7 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
           //         ? 8
           //         : MediaQuery.of(context).size.height * 0.26),
           decoration: shadowDecorationWithBorderColor(
-              const Color.fromARGB(255, 197, 231, 117), Colors.white, 12),
+              const Color.fromARGB(255, 255, 216, 95), Colors.white, 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -746,24 +747,42 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset(
                           "assets/images/close.png",
-                          width: Responsive.isMobile(context) ? 24 : 32,
+                          width: Responsive.isMobile(context) ? 32 : 38,
                         ),
                       ),
                     ),
                   )
                 ],
               ),
-              Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  padding: const EdgeInsets.only(
-                      top: 12, left: 20, bottom: 16, right: 20),
+              Padding(
+                padding: const EdgeInsets.only(right: 36),
+                child: Scrollbar(
+                  trackVisibility: true,
+                  thumbVisibility: true,
                   child: SingleChildScrollView(
+                      child: Padding(
+                    padding: const EdgeInsets.only(right: 12),
                     child: Text(
                       txtChoosen,
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(height: 1.8, fontSize: 17),
+                      style: TextStyle(
+                          height: 1.7,
+                          color: Colors.white,
+                          fontSize: Responsive.isMobile(context) ? 16 : 19),
                     ),
                   )),
+                ),
+              ),
+              // Container(
+              //     height: MediaQuery.of(context).size.height * 0.3,
+              //     padding: const EdgeInsets.only(
+              //         top: 12, left: 20, bottom: 16, right: 20),
+              //     child: SingleChildScrollView(
+              //       child: Text(
+              //         txtChoosen,
+              //         textAlign: TextAlign.left,
+              //         style: const TextStyle(height: 1.8, fontSize: 17),
+              //       ),
+              //     )),
             ],
           )),
     );
@@ -833,7 +852,7 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Image.asset(
                             "assets/images/close.png",
-                            width: Responsive.isMobile(context) ? 24 : 32,
+                            width: Responsive.isMobile(context) ? 32 : 38,
                           ),
                         ),
                       ),

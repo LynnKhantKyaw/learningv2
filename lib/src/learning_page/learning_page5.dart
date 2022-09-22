@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:learning/src/interactive/soil_column_page.dart';
-import 'package:learning/src/interactive/soil_page.dart';
 import 'package:learning/src/learning_page/components/background_page.dart';
 import 'package:learning/src/learning_page/components/section_header.dart';
 import 'package:learning/src/learning_page/learning_page4.dart';
@@ -147,6 +146,8 @@ class _LearningPage5State extends State<LearningPage5> {
                     height: MediaQuery.of(context).size.height * 0.98,
                     child: PhotoView(
                       imageProvider: AssetImage(imageChoosen),
+                      backgroundDecoration:
+                          const BoxDecoration(color: Colors.white),
                     ),
                   ),
                 ),

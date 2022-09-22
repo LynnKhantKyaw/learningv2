@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:learning/src/common_widget/page_pusher_button.dart';
 import 'package:learning/src/interactive/quizz_page1.dart';
+import 'package:learning/src/interactive/soil_page.dart';
 import 'package:learning/src/learning_page/components/background_page.dart';
 import 'package:learning/src/learning_page/components/section_header.dart';
 import 'package:learning/src/learning_page/learning_page5.dart';
@@ -46,9 +45,12 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  color: const Color.fromARGB(200, 113, 101, 45),
+                  decoration: shadowDecorationWithBorderColor(
+                      const Color.fromARGB(200, 113, 101, 45),
+                      const Color.fromARGB(200, 113, 101, 45),
+                      12),
                   margin: const EdgeInsets.only(top: 60),
-                  width: MediaQuery.of(context).size.width * 0.95,
+                  width: MediaQuery.of(context).size.width * 0.74,
                   height: MediaQuery.of(context).size.height * 0.54,
                   child: Stack(
                     children: [
@@ -337,7 +339,7 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: ((context) => const QuizzPage1()),
+                        builder: ((context) => const SoilPageScreen()),
                       ));
                 },
               ),
@@ -370,7 +372,7 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
           //         ? 8
           //         : MediaQuery.of(context).size.height * 0.26),
           decoration: shadowDecorationWithBorderColor(
-              const Color.fromARGB(255, 197, 231, 117), Colors.white, 12),
+              const Color.fromARGB(255, 255, 216, 95), Colors.white, 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -400,7 +402,7 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset(
                           "assets/images/close.png",
-                          width: Responsive.isMobile(context) ? 24 : 32,
+                          width: Responsive.isMobile(context) ? 32 : 38,
                         ),
                       ),
                     ),
@@ -487,7 +489,7 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Image.asset(
                             "assets/images/close.png",
-                            width: Responsive.isMobile(context) ? 24 : 32,
+                            width: Responsive.isMobile(context) ? 32 : 38,
                           ),
                         ),
                       ),
