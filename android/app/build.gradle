@@ -52,9 +52,9 @@ android {
         applicationId "com.wwf.learning"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 4
+        versionCode 5
         multiDexEnabled true
-        versionName "0.0.04"
+        versionName "0.0.05"
     }
 
     signingConfigs {

@@ -10,15 +10,9 @@ import 'package:flutter/services.dart';
 
 final videoPlayerController = VideoPlayerController.asset('assets/soil.mp4');
 
-final chewieController = ChewieController(
-  videoPlayerController: videoPlayerController,
-  autoPlay: false,
-  looping: false,
-);
+late ChewieController chewieController;
 
-final playerWidget = Chewie(
-  controller: chewieController,
-);
+Chewie? playerWidget;
 
 class LearningPage3 extends StatefulWidget {
   const LearningPage3({Key? key}) : super(key: key);
@@ -30,6 +24,7 @@ class LearningPage3 extends StatefulWidget {
 class _LearningPage3State extends State<LearningPage3> {
   @override
   void initState() {
+    startVideo();
     // chewieController.deviceOrientationsAfterFullScreen = [
     //   DeviceOrientation.landscapeLeft,
     //   DeviceOrientation.landscapeRight,
@@ -41,7 +36,6 @@ class _LearningPage3State extends State<LearningPage3> {
     // ]);
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     super.initState();
-    startVideo();
   }
 
   @override
@@ -57,7 +51,22 @@ class _LearningPage3State extends State<LearningPage3> {
 
   startVideo() async {
     await videoPlayerController.initialize();
-    setState(() {});
+    setState(() {
+      print(videoPlayerController.value.aspectRatio);
+      chewieController = ChewieController(
+          videoPlayerController: videoPlayerController,
+          aspectRatio: videoPlayerController.value.aspectRatio,
+          autoPlay: false,
+          looping: false,
+          allowFullScreen: true,
+          deviceOrientationsAfterFullScreen: [
+            DeviceOrientation.landscapeLeft,
+            DeviceOrientation.landscapeRight,
+          ]);
+      playerWidget = Chewie(
+        controller: chewieController,
+      );
+    });
   }
 
   @override
@@ -76,14 +85,17 @@ class _LearningPage3State extends State<LearningPage3> {
             const BackgroundPage(),
             const SessionHeader(),
             Align(
-                alignment: Alignment.center,
-                child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.width * 0.08,
-                        bottom: MediaQuery.of(context).size.width * 0.03),
-                    child:
-                        AspectRatio(aspectRatio: 0.8, child: playerWidget))),
+              alignment: Alignment.center,
+              child: playerWidget != null
+                  ? Container(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.width * 0.08,
+                          bottom: MediaQuery.of(context).size.width * 0.03),
+                      child: AspectRatio(aspectRatio: 0.8, child: playerWidget),
+                    )
+                  : Container(),
+            ),
             Align(
               alignment: Alignment.bottomRight,
               child: Container(

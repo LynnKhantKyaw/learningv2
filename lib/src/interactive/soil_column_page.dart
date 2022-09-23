@@ -113,12 +113,15 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                                     const SizedBox(height: 10),
                                   ],
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: 14),
                                 Container(
-                                  margin: const EdgeInsets.only(right: 30),
-                                  child: Image.asset(
-                                    'assets/images/arrow_right.png',
-                                    height: size.height * 0.11,
+                                  margin: const EdgeInsets.only(right: 28),
+                                  child: Transform.rotate(
+                                    angle: 80,
+                                    child: Image.asset(
+                                      'assets/images/arrow_down.png',
+                                      height: size.height * 0.11,
+                                    ),
                                   ),
                                 ),
                               ],
