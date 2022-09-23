@@ -29,6 +29,7 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
 
   bool selected = false;
   Timer? timer;
+  ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -608,7 +609,7 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
                         top: 68,
                       ),
                       padding: const EdgeInsets.only(
-                          left: 24, top: 8, bottom: 8, right: 8),
+                          left: 24, top: 16, bottom: 8, right: 8),
                       decoration: shadowDecorationWithBorderColor(
                           const Color.fromARGB(200, 113, 101, 45),
                           const Color.fromARGB(200, 113, 101, 45),
@@ -650,25 +651,19 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
-                    height: 42,
-                    width: 42,
-                    margin: const EdgeInsets.only(bottom: 12, right: 20),
-                    decoration: shadowDecoration(Colors.white),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.black,
-                        size: 20,
+                    height: 60,
+                    width: 60,
+                    margin: const EdgeInsets.only(bottom: 8, right: 8),
+                    child: GestureDetector(
+                      child: Image.asset(
+                        "assets/images/arrow_right.png",
+                        width: 20,
                       ),
-                      onPressed: () {
-                        // if (player.playing) {
-                        //   player.stop();
-                        // }
-                        Navigator.pushReplacement(
+                      onTap: () {
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: ((context) => const QuizzPage1()),
-                            ));
+                                builder: ((context) => const QuizzPage1())));
                       },
                     ),
                   ),
@@ -676,18 +671,16 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Container(
-                    height: 42,
-                    width: 42,
-                    margin: const EdgeInsets.only(bottom: 12, left: 20),
-                    decoration: shadowDecoration(Colors.white),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.black,
-                        size: 20,
+                    height: 60,
+                    width: 60,
+                    margin: const EdgeInsets.only(bottom: 8, right: 8),
+                    child: GestureDetector(
+                      child: Image.asset(
+                        "assets/images/arrow_left.png",
+                        width: 20,
                       ),
-                      onPressed: () {
-                        Navigator.pushReplacement(
+                      onTap: () {
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: ((context) =>
@@ -708,14 +701,12 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
     return GestureDetector(
       onTap: () {},
       child: Container(
-          width: 600, //MediaQuery.of(context).size.width * 0.74,
-          // margin: EdgeInsets.only(
-          //     top: Responsive.isMobile(context)
-          //         ? 4
-          //         : MediaQuery.of(context).size.height * 0.15,
-          //     bottom: Responsive.isMobile(context)
-          //         ? 8
-          //         : MediaQuery.of(context).size.height * 0.26),
+          width: MediaQuery.of(context).size.width * 0.58,
+          margin: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.14,
+              bottom: Responsive.isMobile(context)
+                  ? 12
+                  : MediaQuery.of(context).size.height * 0.26),
           decoration: shadowDecorationWithBorderColor(
               const Color.fromARGB(255, 255, 216, 95), Colors.white, 12),
           child: Column(
@@ -724,14 +715,14 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
               Stack(
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 12.0, right: 36, left: 20),
+                    padding: const EdgeInsets.only(
+                        top: 12.0, right: 36, left: 20, bottom: 8),
                     child: Center(
                       child: Image.asset(
                         imageChoosen,
-                        //fit: BoxFit.fill,
+                        fit: BoxFit.fill,
                         // width: MediaQuery.of(context).size.width * 0.74,
-                        height: MediaQuery.of(context).size.height * 0.63,
+                        height: MediaQuery.of(context).size.height * 0.48,
                       ),
                     ),
                   ),
@@ -754,11 +745,13 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
                   )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 36),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.28,
+                padding: const EdgeInsets.only(right: 36, left: 20),
                 child: Scrollbar(
                   trackVisibility: true,
                   thumbVisibility: true,
+                  controller: scrollController,
                   child: SingleChildScrollView(
                       child: Padding(
                     padding: const EdgeInsets.only(right: 12),
@@ -766,7 +759,7 @@ class _SoilPageScreenState extends State<SoilPageScreen> {
                       txtChoosen,
                       style: TextStyle(
                           height: 1.7,
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: Responsive.isMobile(context) ? 16 : 19),
                     ),
                   )),

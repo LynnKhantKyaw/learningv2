@@ -70,17 +70,16 @@ class _LearningPage4State extends State<LearningPage4> {
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
-                height: 42,
-                width: 42,
-                margin: const EdgeInsets.only(bottom: 12, right: 20),
-                decoration: shadowDecoration(Colors.white),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_forward_ios, color: Colors.black,
-                    size: 20,
+                height: 60,
+                width: 60,
+                margin: const EdgeInsets.only(bottom: 8, right: 8),
+                child: GestureDetector(
+                  child: Image.asset(
+                    "assets/images/arrow_right.png",
+                    width: 20,
                   ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
+                  onTap: () {
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: ((context) => const LearningPage5())));
@@ -91,17 +90,16 @@ class _LearningPage4State extends State<LearningPage4> {
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
-                height: 42,
-                width: 42,
-                margin: const EdgeInsets.only(bottom: 12, left: 20),
-                decoration: shadowDecoration(Colors.white),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_ios, color: Colors.black,
-                    size: 20,
+                height: 60,
+                width: 60,
+                margin: const EdgeInsets.only(bottom: 8, right: 8),
+                child: GestureDetector(
+                  child: Image.asset(
+                    "assets/images/arrow_left.png",
+                    width: 20,
                   ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
+                  onTap: () {
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: ((context) => const LearningPage3())));

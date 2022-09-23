@@ -177,17 +177,15 @@ class _LearningPage1State extends State<LearningPage1> {
               child: Visibility(
                 visible: !imagepopUpVisible,
                 child: Container(
-                  height: 42,
-                  width: 42,
-                  margin: const EdgeInsets.only(bottom: 12, right: 20),
-                  decoration: shadowDecoration(Colors.white),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.black,
-                      size: 20,
+                  height: 60,
+                  width: 60,
+                  margin: const EdgeInsets.only(bottom: 8, right: 20),
+                  child: GestureDetector(
+                    child: Image.asset(
+                      "assets/images/arrow_right.png",
+                      width: 20,
                     ),
-                    onPressed: () {
+                    onTap: () {
                       if (player.playing) {
                         player.stop();
                       }
@@ -223,7 +221,7 @@ class _LearningPage1State extends State<LearningPage1> {
           margin: EdgeInsets.only(
               top: MediaQuery.of(context).size.height * 0.14,
               bottom: Responsive.isMobile(context)
-                  ? 40
+                  ? 12
                   : MediaQuery.of(context).size.height * 0.26),
           decoration: shadowDecorationWithBorderColor(
               const Color.fromARGB(255, 255, 216, 95),

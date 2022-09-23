@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:learning/src/common_widget/page_pusher_button.dart';
-import 'package:learning/src/interactive/quizz_page1.dart';
 import 'package:learning/src/interactive/soil_page.dart';
 import 'package:learning/src/learning_page/components/background_page.dart';
 import 'package:learning/src/learning_page/components/section_header.dart';
@@ -59,7 +58,8 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                         child: Container(
                           alignment: Alignment.center,
                           height: 35,
-                          width: MediaQuery.of(context).size.width * 0.4,
+                          margin: const EdgeInsets.only(left: 20),
+                          width: MediaQuery.of(context).size.width * 0.3,
                           // padding: EdgeInsets.only(
                           //     left: 40,
                           //     right: 40,
@@ -100,7 +100,10 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Text('ရာသီဥတု'),
+                                    const Text(
+                                      'ရာသီဥတု',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                     Image.asset(
                                       "assets/images/m1.png",
                                       height:
@@ -147,7 +150,8 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                                       height: size.height * 0.11,
                                     ),
                                     const SizedBox(width: 5),
-                                    const Text('သက်ရှိအကြောင်းအရာများ'),
+                                    const Text('သက်ရှိအကြောင်းအရာများ',
+                                        style: TextStyle(color: Colors.white)),
                                   ],
                                 ),
                                 Container(
@@ -191,7 +195,9 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                                         height: size.height * 0.11,
                                       ),
                                       const SizedBox(width: 5),
-                                      const Text('မြေမျက်နှာသွင်ပြင်'),
+                                      const Text('မြေမျက်နှာသွင်ပြင်',
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ],
                                   ),
                                 ),
@@ -241,7 +247,8 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                                       height: size.height * 0.11,
                                     ),
                                     const SizedBox(width: 5),
-                                    const Text('မိခင်အစိုင်အခဲ။'),
+                                    const Text('မိခင်အစိုင်အခဲ။',
+                                        style: TextStyle(color: Colors.white)),
                                   ],
                                 ),
                               ],
@@ -284,7 +291,8 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                                       height: size.height * 0.11,
                                     ),
                                     const SizedBox(width: 5),
-                                    const Text(' အချိန်'),
+                                    const Text(' အချိန်',
+                                        style: TextStyle(color: Colors.white)),
                                   ],
                                 ),
                               ],
@@ -306,7 +314,7 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                       right: MediaQuery.of(context).size.width * 0.1,
                       bottom: 8),
                   padding: const EdgeInsets.only(
-                      left: 24, top: 8, bottom: 8, right: 8),
+                      left: 24, top: 16, bottom: 8, right: 8),
                   decoration: shadowDecorationWithBorderColor(
                       const Color.fromARGB(200, 113, 101, 45),
                       const Color.fromARGB(200, 113, 101, 45),
@@ -417,7 +425,8 @@ class _SoilColumnPageState extends State<SoilColumnPage> {
                     child: Text(
                       txtChoosen,
                       textAlign: TextAlign.left,
-                      style: const TextStyle(height: 1.8, fontSize: 17),
+                      style: const TextStyle(
+                          height: 1.8, fontSize: 17, color: Colors.black),
                     ),
                   )),
             ],

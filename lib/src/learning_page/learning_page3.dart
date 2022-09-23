@@ -5,7 +5,6 @@ import 'package:learning/src/learning_page/learning_page2.dart';
 import 'package:learning/src/learning_page/learning_page4.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../tool_widgets.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/services.dart';
 
@@ -95,19 +94,15 @@ class _LearningPage3State extends State<LearningPage3> {
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
-                height: 42,
-                width: 42,
-                margin: const EdgeInsets.only(bottom: 12, right: 20),
-                decoration: shadowDecoration(Colors.white),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.black,
-                    size: 20,
+                height: 60,
+                width: 60,
+                margin: const EdgeInsets.only(bottom: 8, right: 8),
+                child: GestureDetector(
+                  child: Image.asset(
+                    "assets/images/arrow_right.png",
+                    width: 20,
                   ),
-                  onPressed: () {
-                    videoPlayerController.pause();
-                    chewieController.pause();
+                  onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -119,19 +114,15 @@ class _LearningPage3State extends State<LearningPage3> {
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
-                height: 42,
-                width: 42,
-                margin: const EdgeInsets.only(bottom: 12, left: 20),
-                decoration: shadowDecoration(Colors.white),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.black,
-                    size: 20,
+                height: 60,
+                width: 60,
+                margin: const EdgeInsets.only(bottom: 8, right: 8),
+                child: GestureDetector(
+                  child: Image.asset(
+                    "assets/images/arrow_left.png",
+                    width: 20,
                   ),
-                  onPressed: () {
-                    videoPlayerController.pause();
-                    chewieController.pause();
+                  onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(

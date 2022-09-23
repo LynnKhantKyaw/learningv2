@@ -9,15 +9,17 @@ class QuizOne {
 }
 
 List<QuizOne> quizList1 = [
-  QuizOne(multiSelect: 'question 1', answer: 'question 1'),
-  QuizOne(multiSelect: 'question 2', answer: 'question 2'),
+  QuizOne(multiSelect: 'မြေသားအနုအကြမ်း', answer: 'မြေသားအနုအကြမ်း'),
   QuizOne(
-    multiSelect: 'question 3',
+      multiSelect: 'မြေဆီလွှာ၏ ဖွဲ့စည်းတည်ဆောက်ပုံ',
+      answer: 'မြေဆီလွှာ၏ ဖွဲ့စည်းတည်ဆောက်ပုံ'),
+  QuizOne(
+    multiSelect: 'မြေဆီလွှာ၏ ပြုမှုများ',
   ),
   QuizOne(
-    multiSelect: 'question 4',
+    multiSelect: 'မြေကြီးအနံ့',
   ),
   QuizOne(
-    multiSelect: 'question 5',
+    multiSelect: 'ပြောင်းလဲဖလှယ်နိုင်စွမ်း',
   ),
 ];

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:learning/tool_widgets.dart';
 
 class PagePusherButton extends StatelessWidget {
   const PagePusherButton({
@@ -14,32 +13,21 @@ class PagePusherButton extends StatelessWidget {
     return Align(
       alignment: forward ? Alignment.bottomRight : Alignment.bottomLeft,
       child: Container(
-        height: 42,
-        width: 42,
+        height: 60,
+        width: 60,
         margin: EdgeInsets.only(
-            bottom: 12, right: forward ? 20 : 0, left: !forward ? 20 : 0),
-        decoration: shadowDecoration(Colors.white),
-        child: forward
-            ? IconButton(
-                icon: const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 20,
-                ),
-                onPressed: () {
-                  onTap?.call();
-                },
-              )
-            : IconButton(
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
-                  size: 20,
-                ),
-                onPressed: () {
-                  onTap?.call();
-                },
-              ),
+            bottom: 8, right: forward ? 8 : 0, left: !forward ? 8 : 0),
+        child: GestureDetector(
+          child: Image.asset(
+            forward
+                ? "assets/images/arrow_right.png"
+                : "assets/images/arrow_left.png",
+            width: 20,
+          ),
+          onTap: () {
+            onTap?.call();
+          },
+        ),
       ),
     );
   }

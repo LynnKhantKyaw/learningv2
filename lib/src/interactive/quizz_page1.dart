@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +11,6 @@ import 'package:learning/src/interactive/soil_page.dart';
 import 'package:learning/src/learning_page/components/background_page.dart';
 import 'package:learning/src/learning_page/components/section_header.dart';
 import 'package:learning/tool_widgets.dart';
-import 'package:riverpod/riverpod.dart';
 
 class QuizzPage1 extends ConsumerStatefulWidget {
   const QuizzPage1({super.key});
@@ -32,9 +29,11 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
         (e) => MultiSelectCard(
           value: e.multiSelect,
           label: e.multiSelect,
+          textStyles: const MultiSelectItemTextStyles(
+              textStyle: TextStyle(color: Colors.white)),
           margin: const EdgeInsets.symmetric(
-            horizontal: 80,
-            vertical: 15,
+            horizontal: 30,
+            vertical: 10,
           ),
         ),
       )
@@ -63,73 +62,106 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.symmetric(horizontal: 30),
+                      decoration: shadowDecorationWithBorderColor(
+                          const Color.fromARGB(200, 113, 101, 45),
+                          const Color.fromARGB(200, 113, 101, 45),
+                          12),
+                      margin: const EdgeInsets.symmetric(horizontal: 60),
                       width: double.infinity,
                       height: 80,
-                      color: Colors.black38,
                       child: const Text(
-                        'Question One',
+                        'မြေဆီလွှာ၏ ရုပ်ဂုဏ်သတ္တိများကို ရွေးပါ။',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Wrap(
-                        alignment: WrapAlignment.center,
-                        direction: Axis.horizontal,
-                        children: [
-                          MultiSelectContainer(
-                            controller: MultiSelectController(),
-                            itemsDecoration: const MultiSelectDecorations(
-                              decoration: BoxDecoration(
-                                  color: Colors.amber,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
-                              disabledDecoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
-                              selectedDecoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
+                    SizedBox(
+                      height: 120,
+                      child: Wrap(
+                          alignment: WrapAlignment.center,
+                          direction: Axis.horizontal,
+                          children: [
+                            MultiSelectContainer(
+                              controller: MultiSelectController(),
+                              itemsDecoration: const MultiSelectDecorations(
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 120, 126, 184),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12))),
+                                disabledDecoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12))),
+                                selectedDecoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 45, 50, 112),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12))),
+                              ),
+                              maxSelectableCount: 2,
+                              items: multiselect,
+                              onChange: ((selectedItems, selectedItem) {
+                                answerList.clear();
+                                answerList.addAll(selectedItems);
+                                setState(() {
+                                  answer = selectedItem;
+                                  if (selectedItems.length == 2) {
+                                    answerCount = false;
+                                  } else {
+                                    answerCount = true;
+                                  }
+                                });
+                                log(answerList.toString());
+                              }),
                             ),
-                            maxSelectableCount: 2,
-                            items: multiselect,
-                            onChange: ((selectedItems, selectedItem) {
-                              answerList.add(selectedItems);
-                              setState(() {
-                                answer = selectedItem;
-                                answerCount = true;
-                              });
-                              log(answerList.toString());
-                            }),
-                          ),
-                        ]),
-                    const SizedBox(height: 10),
-                    InkWell(
+                          ]),
+                    ),
+                    const SizedBox(height: 20),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
                       onTap: () {
                         log(answer);
-                        //    log(checkanswer[0].toString());
-                        if (answer == checkanswer[0] &&
-                            answer == checkanswer[1]) {
-                          //log("success");
+                        if (answerCount) {
+                          log("Answer Need");
+                          final snackBar = SnackBar(
+                            content: const Text(
+                                'အဖြေ နှစ်ခု ရွေးချယ်ပေးရန် လိုအပ်ပါသည်။'),
+                            action: SnackBarAction(
+                              label: 'ပိတ်မည်',
+                              onPressed: () {
+                                // Some code to undo the change.
+                              },
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else {
-                          //  log('fail');
+                          log("Answer No Need");
+                          log(checkanswer[0].toString());
+                          if (answer == checkanswer[0] &&
+                              answer == checkanswer[1]) {
+                            log("success");
+                          } else {
+                            log('fail');
+                          }
+                          setState(() {});
                         }
-                        setState(() {});
                       },
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8))),
-                        width: 130,
-                        height: 45,
-                        child: const Text(
-                          'check answer',
-                          style: TextStyle(color: Colors.black),
-                        ),
+                      child: Stack(
+                        children: [
+                          Image.asset(
+                            "assets/images/check_answer.png",
+                            width: 150,
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            width: 150,
+                            height: 50,
+                            child: const Text(
+                              'အဖြေစစ်မယ်',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -139,20 +171,20 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
                 alignment: Alignment.bottomCenter,
                 child: QuizCircleIndex(),
               ),
-              if (answerCount)
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 600,
-                    height: 30,
-                    color: Colors.black54,
-                    child: const Text(
-                      'answer 2 khu shi p dl',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
+              // if (answerCount)
+              //   Align(
+              //     alignment: Alignment.bottomCenter,
+              //     child: Container(
+              //       alignment: Alignment.center,
+              //       width: 600,
+              //       height: 30,
+              //       color: Colors.black54,
+              //       child: const Text(
+              //         'answer 2 khu shi p dl',
+              //         style: TextStyle(color: Colors.white),
+              //       ),
+              //     ),
+              //   ),
               PagePusherButton(
                 forward: false,
                 onTap: () {
@@ -169,7 +201,7 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => QuizzPage2(),
+                        builder: (context) => const QuizzPage2(),
                       ));
                   setState(() {
                     answerCount = false;

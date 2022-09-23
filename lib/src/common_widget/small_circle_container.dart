@@ -13,15 +13,15 @@ class QuizCircleIndex extends ConsumerWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return Container(
-            margin: const EdgeInsets.only(bottom: 10),
+            margin: const EdgeInsets.only(bottom: 12),
             alignment: Alignment.bottomCenter,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   margin: const EdgeInsets.only(right: 5),
-                  width: 20,
-                  height: 20,
+                  width: 12,
+                  height: 12,
                   decoration: BoxDecoration(
                     color: ref.watch(quizzIndexProvider) == index
                         ? Colors.white
