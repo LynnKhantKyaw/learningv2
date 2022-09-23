@@ -57,6 +57,7 @@ class _LearningPage3State extends State<LearningPage3> {
 
   startVideo() async {
     await videoPlayerController.initialize();
+    setState(() {});
   }
 
   @override
@@ -77,20 +78,12 @@ class _LearningPage3State extends State<LearningPage3> {
             Align(
                 alignment: Alignment.center,
                 child: Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
                     margin: EdgeInsets.only(
                         top: MediaQuery.of(context).size.width * 0.08,
                         bottom: MediaQuery.of(context).size.width * 0.03),
                     child:
-                        AspectRatio(aspectRatio: 6 / 4, child: playerWidget))),
-            // Align(
-            //     alignment: Alignment.center,
-            //     child: Container(
-            //         margin: EdgeInsets.only(
-            //             top: 90,
-            //             left: MediaQuery.of(context).size.width * 0.1,
-            //             right: MediaQuery.of(context).size.width * 0.1,
-            //             bottom: 40),
-            //         child: playerWidget)),
+                        AspectRatio(aspectRatio: 0.8, child: playerWidget))),
             Align(
               alignment: Alignment.bottomRight,
               child: Container(

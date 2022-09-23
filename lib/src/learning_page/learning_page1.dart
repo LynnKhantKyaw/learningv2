@@ -1,10 +1,14 @@
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:learning/src/audio_controller/audio_controller.dart';
 import 'package:learning/src/learning_page/components/background_page.dart';
 import 'package:learning/src/learning_page/components/section_header.dart';
 import 'package:learning/src/learning_page/learning_page2.dart';
 import 'package:learning/src/responsive.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:just_audio/just_audio.dart' as justAudio;
+import 'package:rxdart/rxdart.dart';
 
 import '../../tool_widgets.dart';
 
@@ -18,11 +22,26 @@ class LearningPage1 extends StatefulWidget {
 class _LearningPage1State extends State<LearningPage1> {
   bool textpopUpVisible = false;
   bool imagepopUpVisible = false;
+  bool startPlay = false;
+  late Stream<DurationState> _durationState;
   String imageChoosen = "assets/images/l1.png";
   final player = justAudio.AudioPlayer();
   ScrollController scrollController = ScrollController();
   String txt =
       "ကမ္ဘာမြေရဲ့ တစ်နေရာနဲ့ တစ်နေရာ၊ လယ်ကွင်းတစ်ခုရဲ့ တစ်နေရာနဲ့ တစ်နေရာ‌ပေါ် မူတည်ပြီး မြေဆီလွှာ‌တွေက ကွဲပြားမှု ရှိပါတယ်။ သူတို့ ဘယ်လိုဖြစ်‌ပေါ်လာလဲဆိုတဲ့ အပေါ်မူတည်ပြီးတော့လည်း မြေဆီလွှာတွေက ကွဲပြားမှုရှိကြပါတယ်။ မြေဆီလွှာကို ဖြစ်ပေါ်စေတဲ့ အကြောင်းအရာတွေကြောင့် မတူကွဲပြားတဲ့ မြေဆီလွှာအမျိုးမျိုး ဖြစ်ပေါ်လာရပါတယ်။ ";
+
+  @override
+  void initState() {
+    super.initState();
+    _durationState = Rx.combineLatest2<Duration, PlaybackEvent, DurationState>(
+        player.positionStream,
+        player.playbackEventStream,
+        (position, playbackEvent) => DurationState(
+              progress: position,
+              buffered: playbackEvent.bufferedPosition,
+              total: playbackEvent.duration,
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +69,9 @@ class _LearningPage1State extends State<LearningPage1> {
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () async {
+                        setState(() {
+                          startPlay = true;
+                        });
                         await playSound();
                       },
                       child: Align(
@@ -58,9 +80,26 @@ class _LearningPage1State extends State<LearningPage1> {
                           margin: EdgeInsets.only(
                               bottom: MediaQuery.of(context).size.height * 0.3,
                               right: 12),
-                          child: Image.asset(
-                            "assets/images/profile1.png",
-                            width: 52,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Image.asset(
+                                    "assets/images/profile1.png",
+                                    width: 52,
+                                  ),
+                                  startPlay ? _playButton() : Container()
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              SizedBox(width: 60, child: _progressBar())
+                            ],
                           ),
                         ),
                       ),
@@ -201,6 +240,72 @@ class _LearningPage1State extends State<LearningPage1> {
           ],
         ),
       ),
+    );
+  }
+
+  StreamBuilder<DurationState> _progressBar() {
+    return StreamBuilder<DurationState>(
+      stream: _durationState,
+      builder: (context, snapshot) {
+        final durationState = snapshot.data;
+        final progress = durationState?.progress ?? Duration.zero;
+        final buffered = durationState?.buffered ?? Duration.zero;
+        final total = durationState?.total ?? Duration.zero;
+        return ProgressBar(
+          progress: progress,
+          buffered: buffered,
+          total: total,
+          onSeek: (duration) {
+            player.seek(duration);
+          },
+          onDragUpdate: (details) {
+            debugPrint('${details.timeStamp}, ${details.localPosition}');
+          },
+          timeLabelLocation: TimeLabelLocation.none,
+          barHeight: 6,
+          baseBarColor: Colors.white,
+          thumbRadius: 2,
+        );
+      },
+    );
+  }
+
+  StreamBuilder<PlayerState> _playButton() {
+    return StreamBuilder<PlayerState>(
+      stream: player.playerStateStream,
+      builder: (context, snapshot) {
+        final playerState = snapshot.data;
+        final processingState = playerState?.processingState;
+        final playing = playerState?.playing;
+        if ((processingState == ProcessingState.loading ||
+                processingState == ProcessingState.buffering) &&
+            !startPlay) {
+          return Container(
+            margin: const EdgeInsets.all(8.0),
+            width: 24.0,
+            height: 24.0,
+            child: const CircularProgressIndicator(),
+          );
+        } else if (playing != true) {
+          return IconButton(
+            icon: const Icon(Icons.play_arrow),
+            iconSize: 32.0,
+            onPressed: player.play,
+          );
+        } else if (processingState != ProcessingState.completed) {
+          return IconButton(
+            icon: const Icon(Icons.pause),
+            iconSize: 32.0,
+            onPressed: player.pause,
+          );
+        } else {
+          return IconButton(
+            icon: const Icon(Icons.replay),
+            iconSize: 32.0,
+            onPressed: () => player.seek(Duration.zero),
+          );
+        }
+      },
     );
   }
 

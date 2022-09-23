@@ -22,6 +22,8 @@ dependencies:
   flutter_multi_select_items: ^0.4.2
   flutter_riverpod: ^2.0.0-dev.9
   audio_video_progress_bar: ^0.10.0
+  better_player: ^0.0.83
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:

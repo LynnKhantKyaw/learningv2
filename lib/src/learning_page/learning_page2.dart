@@ -1,11 +1,15 @@
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:learning/src/audio_controller/audio_controller.dart';
 import 'package:learning/src/learning_page/components/background_page.dart';
 import 'package:learning/src/learning_page/components/section_header.dart';
 import 'package:learning/src/learning_page/learning_page1.dart';
 import 'package:learning/src/learning_page/learning_page3.dart';
 import 'package:learning/src/responsive.dart';
 import 'package:photo_view/photo_view.dart';
-
+import 'package:just_audio/just_audio.dart' as justAudio;
+import 'package:rxdart/rxdart.dart';
 import '../../tool_widgets.dart';
 
 class LearningPage2 extends StatefulWidget {
@@ -20,6 +24,21 @@ class _LearningPage2State extends State<LearningPage2> {
   String imageChoosen = "assets/images/l2.png";
   String txt =
       "မြေဆီလွှာမှာ အဓိကပါဝင်မှု (၅)မျိုး ရှိပါတယ်။ ၎င်းတို့ကတော့ - \n၁။ ကျောက်တုံးကျောက်ဆောင်များ ပြိုကွဲခြင်းနှင့် ပျက်စီးခြင်းတို့မှ ဖြစ်ပေါ်လာသော ဓာတ်သတ္တုများ\n၂။ အပင်အကြွင်းအကျန်များ၊ တိရစ္ဆာန်အကြွင်းအကျန်များနှင့် အဏုဇီဝတစ်ရှုးများ ဆွေးမြေ့ရာမှ ဖြစ်ပေါ်လာသော သဘာဝမြေဆွေး \n၃။ ရေ \n၄။ လေနှင့် ဓာတ်ငွေ့များ  \n၅။ သက်ရှိများ (တီကောင်၊ အင်းဆက်ကဲ့သို့သော အကောင်ကြီးများနှင့် အဏုဇီဝပိုးများ ကဲ့သို့သော အကောင်ငယ်များ)";
+  bool startPlay = false;
+  late Stream<DurationState> _durationState;
+  final player = justAudio.AudioPlayer();
+  @override
+  void initState() {
+    super.initState();
+    _durationState = Rx.combineLatest2<Duration, PlaybackEvent, DurationState>(
+        player.positionStream,
+        player.playbackEventStream,
+        (position, playbackEvent) => DurationState(
+              progress: position,
+              buffered: playbackEvent.bufferedPosition,
+              total: playbackEvent.duration,
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,14 +113,12 @@ class _LearningPage2State extends State<LearningPage2> {
                       12),
                   child: Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: Scrollbar(
-                          trackVisibility: true,
-                          thumbVisibility: true,
-                          child: SingleChildScrollView(
-                              child: Padding(
-                            padding: const EdgeInsets.only(right: 12),
+                      Scrollbar(
+                        trackVisibility: true,
+                        thumbVisibility: true,
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 70),
                             child: Text(
                               txt,
                               style: TextStyle(
@@ -110,7 +127,33 @@ class _LearningPage2State extends State<LearningPage2> {
                                   fontSize:
                                       Responsive.isMobile(context) ? 16 : 19),
                             ),
-                          )),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () async {
+                            setState(() {
+                              startPlay = true;
+                            });
+                            await playSound();
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 2, right: 2),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                _playButton(),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                SizedBox(width: 60, child: _progressBar())
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -167,6 +210,87 @@ class _LearningPage2State extends State<LearningPage2> {
         ),
       ),
     );
+  }
+
+  StreamBuilder<DurationState> _progressBar() {
+    return StreamBuilder<DurationState>(
+      stream: _durationState,
+      builder: (context, snapshot) {
+        final durationState = snapshot.data;
+        final progress = durationState?.progress ?? Duration.zero;
+        final buffered = durationState?.buffered ?? Duration.zero;
+        final total = durationState?.total ?? Duration.zero;
+        return ProgressBar(
+          progress: progress,
+          buffered: buffered,
+          total: total,
+          onSeek: (duration) {
+            player.seek(duration);
+          },
+          onDragUpdate: (details) {
+            debugPrint('${details.timeStamp}, ${details.localPosition}');
+          },
+          timeLabelLocation: TimeLabelLocation.none,
+          barHeight: 6,
+          baseBarColor: Colors.white,
+          thumbRadius: 2,
+        );
+      },
+    );
+  }
+
+  StreamBuilder<PlayerState> _playButton() {
+    return StreamBuilder<PlayerState>(
+      stream: player.playerStateStream,
+      builder: (context, snapshot) {
+        final playerState = snapshot.data;
+        final processingState = playerState?.processingState;
+        final playing = playerState?.playing;
+        if ((processingState == ProcessingState.loading ||
+                processingState == ProcessingState.buffering) &&
+            !startPlay) {
+          return Container(
+            margin: const EdgeInsets.all(8.0),
+            width: 24.0,
+            height: 24.0,
+            child: const CircularProgressIndicator(),
+          );
+        } else if (playing != true) {
+          return GestureDetector(
+            onTap: player.play,
+            child: Image.asset(
+              "assets/images/profile1.png",
+              width: 52,
+            ),
+          );
+        } else if (processingState != ProcessingState.completed) {
+          return GestureDetector(
+            onTap: player.pause,
+            child: Image.asset(
+              "assets/images/profile1.png",
+              width: 52,
+            ),
+          );
+        } else {
+          return GestureDetector(
+            onTap: () => player.seek(Duration.zero),
+            child: Image.asset(
+              "assets/images/profile1.png",
+              width: 52,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Future<void> playSound() async {
+    if (player.playing) {
+      player.stop();
+    }
+    await player.setAsset('assets/audio/s2.wav', preload: true);
+
+    await player.play();
   }
 
   Widget imagePopUpWidget() {
