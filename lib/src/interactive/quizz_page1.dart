@@ -23,6 +23,7 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
   dynamic answer = '';
   List<dynamic> answerList = [];
   bool answerCount = false;
+  bool answerCorrect = false;
   final checkanswer = quizList1.map((e) => e.answer).toList();
   final multiselect = quizList1
       .map(
@@ -83,19 +84,22 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
                           children: [
                             MultiSelectContainer(
                               controller: MultiSelectController(),
-                              itemsDecoration: const MultiSelectDecorations(
-                                decoration: BoxDecoration(
+                              itemsDecoration: MultiSelectDecorations(
+                                decoration: const BoxDecoration(
                                     color: Color.fromARGB(255, 120, 126, 184),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(12))),
-                                disabledDecoration: BoxDecoration(
+                                disabledDecoration: const BoxDecoration(
                                     color: Colors.grey,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(12))),
                                 selectedDecoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 45, 50, 112),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12))),
+                                    color: answerCorrect
+                                        ? Colors.green
+                                        : const Color.fromARGB(
+                                            255, 45, 50, 112),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(12))),
                               ),
                               maxSelectableCount: 2,
                               items: multiselect,
@@ -141,6 +145,9 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
                               log(checkanswer[0].toString());
                               if (answerList[0] == checkanswer[0] &&
                                   answerList[1] == checkanswer[1]) {
+                                setState(() {
+                                  answerCorrect = true;
+                                });
                                 _showSuccessAlertDialog();
                               } else {
                                 _showFailAlertDialog();
@@ -175,6 +182,9 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
                               log(checkanswer[0].toString());
                               if (answerList[0] == checkanswer[0] &&
                                   answerList[1] == checkanswer[1]) {
+                                setState(() {
+                                  answerCorrect = true;
+                                });
                                 _showSuccessAlertDialog();
                               } else {
                                 _showFailAlertDialog();

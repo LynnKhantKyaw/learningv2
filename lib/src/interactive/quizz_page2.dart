@@ -20,6 +20,7 @@ class QuizzPage2 extends ConsumerStatefulWidget {
 class _QuizzPage2State extends ConsumerState<QuizzPage2> {
   bool button = false;
   bool nextPage = false;
+  bool answerCorrect = false;
   final multiselect = quizlist2
       .map(
         (e) => MultiSelectCard(
@@ -80,20 +81,23 @@ class _QuizzPage2State extends ConsumerState<QuizzPage2> {
                         MultiSelectContainer(
                           singleSelectedItem: true,
                           controller: MultiSelectController(),
-                          itemsDecoration: const MultiSelectDecorations(
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 120, 126, 184),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            disabledDecoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            selectedDecoration: BoxDecoration(
-                                color: Color.fromARGB(255, 45, 50, 112),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                          ),
+                          itemsDecoration: MultiSelectDecorations(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 120, 126, 184),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12))),
+                                disabledDecoration: const BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12))),
+                                selectedDecoration: BoxDecoration(
+                                    color: answerCorrect
+                                        ? Colors.green
+                                        : const Color.fromARGB(
+                                            255, 45, 50, 112),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(12))),
+                              ),
                           maxSelectableCount: 1,
                           items: multiselect,
                           onChange: ((selectedItems, selectedItem) {
@@ -126,6 +130,9 @@ class _QuizzPage2State extends ConsumerState<QuizzPage2> {
                                   .showSnackBar(snackBar);
                             } else {
                               if (selected == "မှား") {
+                                setState(() {
+                                  answerCorrect = true;
+                                });
                                 _showSuccessAlertDialog();
                               } else {
                                 _showFailAlertDialog();
@@ -155,6 +162,9 @@ class _QuizzPage2State extends ConsumerState<QuizzPage2> {
                                   .showSnackBar(snackBar);
                             } else {
                               if (selected == "မှား") {
+                                setState(() {
+                                  answerCorrect = true;
+                                });
                                 _showSuccessAlertDialog();
                               } else {
                                 _showFailAlertDialog();

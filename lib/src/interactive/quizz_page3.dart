@@ -20,6 +20,7 @@ class QuizzPage3 extends ConsumerStatefulWidget {
 class _QuizzPage3State extends ConsumerState<QuizzPage3> {
   bool button = false;
   bool nextPage = false;
+  bool answerCorrect = false;
   final multiselect = quizlist2
       .map(
         (e) => MultiSelectCard(
@@ -80,19 +81,21 @@ class _QuizzPage3State extends ConsumerState<QuizzPage3> {
                         MultiSelectContainer(
                           singleSelectedItem: true,
                           controller: MultiSelectController(),
-                          itemsDecoration: const MultiSelectDecorations(
-                            decoration: BoxDecoration(
+                          itemsDecoration: MultiSelectDecorations(
+                            decoration: const BoxDecoration(
                                 color: Color.fromARGB(255, 120, 126, 184),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
-                            disabledDecoration: BoxDecoration(
+                            disabledDecoration: const BoxDecoration(
                                 color: Colors.grey,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
                             selectedDecoration: BoxDecoration(
-                                color: Color.fromARGB(255, 45, 50, 112),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
+                                color: answerCorrect
+                                    ? Colors.green
+                                    : const Color.fromARGB(255, 45, 50, 112),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(12))),
                           ),
                           maxSelectableCount: 1,
                           items: multiselect,
@@ -126,6 +129,9 @@ class _QuizzPage3State extends ConsumerState<QuizzPage3> {
                                   .showSnackBar(snackBar);
                             } else {
                               if (selected == "မှန်") {
+                                setState(() {
+                                  answerCorrect = true;
+                                });
                                 _showSuccessAlertDialog();
                               } else {
                                 _showFailAlertDialog();
@@ -155,6 +161,9 @@ class _QuizzPage3State extends ConsumerState<QuizzPage3> {
                                   .showSnackBar(snackBar);
                             } else {
                               if (selected == "မှန်") {
+                                setState(() {
+                                  answerCorrect = true;
+                                });
                                 _showSuccessAlertDialog();
                               } else {
                                 _showFailAlertDialog();
