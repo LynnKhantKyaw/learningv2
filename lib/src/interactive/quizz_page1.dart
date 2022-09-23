@@ -116,42 +116,72 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
                           ]),
                     ),
                     const SizedBox(height: 20),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        log(answer);
-                        if (answerCount) {
-                          log("Answer Need");
-                          final snackBar = SnackBar(
-                            content: const Text(
-                                'အဖြေ နှစ်ခု ရွေးချယ်ပေးရန် လိုအပ်ပါသည်။'),
-                            action: SnackBarAction(
-                              label: 'ပိတ်မည်',
-                              onPressed: () {
-                                // Some code to undo the change.
-                              },
-                            ),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        } else {
-                          log("Answer No Need");
-                          log(checkanswer[0].toString());
-                          if (answer == checkanswer[0] &&
-                              answer == checkanswer[1]) {
-                            log("success");
-                          } else {
-                            log('fail');
-                          }
-                          setState(() {});
-                        }
-                      },
-                      child: Stack(
-                        children: [
-                          Image.asset(
+                    Stack(
+                      children: [
+                        GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {
+                            log(answer);
+                            if (answerCount) {
+                              log("Answer Need");
+                              final snackBar = SnackBar(
+                                content: const Text(
+                                    'အဖြေ နှစ်ခု ရွေးချယ်ပေးရန် လိုအပ်ပါသည်။'),
+                                action: SnackBarAction(
+                                  label: 'ပိတ်မည်',
+                                  onPressed: () {
+                                    // Some code to undo the change.
+                                  },
+                                ),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else {
+                              log("Answer No Need");
+                              log(checkanswer[0].toString());
+                              if (answerList[0] == checkanswer[0] &&
+                                  answerList[1] == checkanswer[1]) {
+                                _showSuccessAlertDialog();
+                              } else {
+                                _showFailAlertDialog();
+                              }
+                            }
+                          },
+                          child: Image.asset(
                             "assets/images/check_answer.png",
                             width: 150,
                           ),
-                          Container(
+                        ),
+                        GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {
+                            log(answer);
+                            if (answerCount || answerList.length != 2) {
+                              log("Answer Need");
+                              final snackBar = SnackBar(
+                                content: const Text(
+                                    'အဖြေ နှစ်ခု ရွေးချယ်ပေးရန် လိုအပ်ပါသည်။'),
+                                action: SnackBarAction(
+                                  label: 'ပိတ်မည်',
+                                  onPressed: () {
+                                    // Some code to undo the change.
+                                  },
+                                ),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else {
+                              log("Answer No Need");
+                              log(checkanswer[0].toString());
+                              if (answerList[0] == checkanswer[0] &&
+                                  answerList[1] == checkanswer[1]) {
+                                _showSuccessAlertDialog();
+                              } else {
+                                _showFailAlertDialog();
+                              }
+                            }
+                          },
+                          child: Container(
                             alignment: Alignment.center,
                             width: 150,
                             height: 50,
@@ -161,8 +191,8 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
                                   TextStyle(color: Colors.black, fontSize: 16),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -171,20 +201,6 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
                 alignment: Alignment.bottomCenter,
                 child: QuizCircleIndex(),
               ),
-              // if (answerCount)
-              //   Align(
-              //     alignment: Alignment.bottomCenter,
-              //     child: Container(
-              //       alignment: Alignment.center,
-              //       width: 600,
-              //       height: 30,
-              //       color: Colors.black54,
-              //       child: const Text(
-              //         'answer 2 khu shi p dl',
-              //         style: TextStyle(color: Colors.white),
-              //       ),
-              //     ),
-              //   ),
               PagePusherButton(
                 forward: false,
                 onTap: () {
@@ -212,6 +228,76 @@ class _QuizzPage1State extends ConsumerState<QuizzPage1> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showSuccessAlertDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // <-- SEE HERE
+          //title: const Text('Cancel booking'),
+          contentPadding: EdgeInsets.zero,
+          content: Container(
+              height: MediaQuery.of(context).size.height * 0.73,
+              color: Colors.green,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Image.asset(
+                    "assets/images/check_green.png",
+                    width: 110,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'သင့်အဖြေ မှန်ပါတယ် ',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ],
+              )),
+        );
+      },
+    );
+  }
+
+  Future<void> _showFailAlertDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // <-- SEE HERE
+          //title: const Text('Cancel booking'),
+          contentPadding: EdgeInsets.zero,
+          content: Container(
+              height: MediaQuery.of(context).size.height * 0.73,
+              color: Colors.red,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Image.asset(
+                    "assets/images/close.png",
+                    width: 90,
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Text(
+                    'သင့်အဖြေ မှားနေပါတယ် ',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ],
+              )),
+        );
+      },
     );
   }
 }
