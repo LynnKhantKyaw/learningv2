@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:learning/src/library/library_main.dart';
 import 'package:learning/src/responsive.dart';
@@ -53,21 +51,27 @@ class SessionHeader extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.topLeft,
-          child: Container(
-            padding: const EdgeInsets.only(left: 12, top: 6),
-            child: Row(children: [
-              Image.asset(
-                "assets/images/back.png",
-                width: 36,
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              Image.asset(
-                "assets/images/home.png",
-                width: 36,
-              )
-            ]),
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              padding: const EdgeInsets.only(left: 12, top: 6),
+              child: Row(children: [
+                Image.asset(
+                  "assets/images/back.png",
+                  width: 36,
+                ),
+                const SizedBox(
+                  width: 12,
+                ),
+                Image.asset(
+                  "assets/images/home.png",
+                  width: 36,
+                )
+              ]),
+            ),
           ),
         ),
         Container(
