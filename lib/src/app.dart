@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:learning/src/interactive/soil_page.dart';
 import 'package:learning/src/learning_page/learning_page1.dart';
-import 'package:learning/src/main_map/main_map.dart';
+import 'package:learning/src/main_map/main_map1.dart';
 
 import 'sample_feature/sample_item_details_view.dart';
 import 'sample_feature/sample_item_list_view.dart';
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
                     return const SoilPageScreen();
                   case SampleItemListView.routeName:
                   default:
-                    return const MainMapScreen();
+                    return const MainMapFirstScreen();
                 }
               },
             );
