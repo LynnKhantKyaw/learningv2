@@ -1,6 +1,8 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:learning/src/learning_page/learning_page1.dart';
+import 'package:learning/src/main_map/main_map2.dart';
+import 'package:learning/src/main_map/main_map3.dart';
 import 'package:learning/tool_widgets.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -510,12 +512,18 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              const SizedBox(
+                                height: 4,
+                              ),
                               const Text(
                                 "Moe Aung",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 6,
                               ),
                               Row(
                                 children: [
@@ -593,9 +601,17 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                   ],
                 ),
               ),
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {},
+              BouncingWidget(
+                duration: const Duration(milliseconds: 400),
+                scaleFactor: 1.5,
+                onPressed: () async {
+                  Future.delayed(const Duration(milliseconds: 800), () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MainMapSecondScreen()));
+                  });
+                },
                 child: Container(
                   margin: EdgeInsets.only(
                       top: 4, left: MediaQuery.of(context).size.width * 0.27),
@@ -610,13 +626,21 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                     "Developing and\nStrengthening\nFarmer Associations",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.white, height: 1.3, fontSize: 13),
+                        color: Colors.white, height: 1.3, fontSize: 12),
                   ),
                 ),
               ),
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {},
+              BouncingWidget(
+                duration: const Duration(milliseconds: 400),
+                scaleFactor: 1.5,
+                onPressed: () async {
+                  Future.delayed(const Duration(milliseconds: 800), () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MainMapThirdScreen()));
+                  });
+                },
                 child: Container(
                   margin: EdgeInsets.only(
                       top: 4, left: MediaQuery.of(context).size.width * 0.58),
@@ -631,27 +655,23 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                     "Substainable\nNatural Rubber",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.white, height: 1.3, fontSize: 13),
+                        color: Colors.white, height: 1.3, fontSize: 12),
                   ),
                 ),
               ),
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {},
-                child: Container(
-                  margin: EdgeInsets.only(
-                      top: 32, left: MediaQuery.of(context).size.width * 0.42),
-                  decoration: shadowDecorationWithBorderColor(
-                      const Color(0xffe0e0e0), const Color(0xffe0e0e0), 0),
-                  padding: const EdgeInsets.only(top: 17),
-                  width: MediaQuery.of(context).size.width * 0.16,
-                  height: 60,
-                  child: const Text(
-                    "စိုက်ပျိုးဂေဟစနစ်ဆိုင်ရာ \nအလေ့အထများ",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.black, height: 1.3, fontSize: 13),
-                  ),
+              Container(
+                margin: EdgeInsets.only(
+                    top: 32, left: MediaQuery.of(context).size.width * 0.42),
+                decoration: shadowDecorationWithBorderColor(
+                    const Color(0xffe0e0e0), const Color(0xffe0e0e0), 0),
+                padding: const EdgeInsets.only(top: 17),
+                width: MediaQuery.of(context).size.width * 0.16,
+                height: 60,
+                child: const Text(
+                  "စိုက်ပျိုးဂေဟစနစ်ဆိုင်ရာ \nအလေ့အထများ",
+                  textAlign: TextAlign.center,
+                  style:
+                      TextStyle(color: Colors.black, height: 1.3, fontSize: 12),
                 ),
               ),
               Positioned(
@@ -678,77 +698,97 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
               Positioned(
                 left: MediaQuery.of(context).size.width * 0.82,
                 top: 8,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      "assets/images/button_small.png",
-                      width: 60,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 16),
-                      child: Image.asset(
-                        "assets/images/ic_noti.png",
-                        width: 28,
+                child: BouncingWidget(
+                  duration: const Duration(milliseconds: 400),
+                  scaleFactor: 1.5,
+                  onPressed: () async {},
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        "assets/images/button_small.png",
+                        width: 60,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, left: 16),
+                        child: Image.asset(
+                          "assets/images/ic_noti.png",
+                          width: 28,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Positioned(
                 left: MediaQuery.of(context).size.width * 0.9,
                 top: 8,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      "assets/images/button_small.png",
-                      width: 60,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 16),
-                      child: Image.asset(
-                        "assets/images/ic_menu.png",
-                        width: 28,
+                child: BouncingWidget(
+                  duration: const Duration(milliseconds: 400),
+                  scaleFactor: 1.5,
+                  onPressed: () async {},
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        "assets/images/button_small.png",
+                        width: 60,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, left: 16),
+                        child: Image.asset(
+                          "assets/images/ic_menu.png",
+                          width: 28,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Positioned(
                 left: MediaQuery.of(context).size.width * 0.82,
                 top: MediaQuery.of(context).size.height * 0.83,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      "assets/images/button_small.png",
-                      width: 60,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 16),
-                      child: Image.asset(
-                        "assets/images/ic_book.png",
-                        width: 28,
+                child: BouncingWidget(
+                  duration: const Duration(milliseconds: 400),
+                  scaleFactor: 1.5,
+                  onPressed: () async {},
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        "assets/images/button_small.png",
+                        width: 60,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, left: 16),
+                        child: Image.asset(
+                          "assets/images/ic_book.png",
+                          width: 28,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Positioned(
                 left: MediaQuery.of(context).size.width * 0.9,
                 top: MediaQuery.of(context).size.height * 0.83,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      "assets/images/button_small.png",
-                      width: 60,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 16),
-                      child: Image.asset(
-                        "assets/images/ic_media.png",
-                        width: 28,
+                child: BouncingWidget(
+                  duration: const Duration(milliseconds: 400),
+                  scaleFactor: 1.5,
+                  onPressed: () async {},
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        "assets/images/button_small.png",
+                        width: 60,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, left: 16),
+                        child: Image.asset(
+                          "assets/images/ic_media.png",
+                          width: 28,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -814,7 +854,7 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.black, fontSize: 11),
+            style: const TextStyle(color: Colors.black, fontSize: 10),
           ),
         ),
       ),
@@ -844,7 +884,7 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
             text,
             textAlign: TextAlign.center,
             style: const TextStyle(
-                color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 11, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -932,7 +972,7 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 13,
+                      fontSize: 12,
                       height: 1.2,
                       fontWeight: FontWeight.bold),
                 ),
