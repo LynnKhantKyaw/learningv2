@@ -77,9 +77,7 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
-                              const SizedBox(
-                                height: 6,
-                              ),
+                              
                               Row(
                                 children: [
                                   Image.asset("assets/images/ic_trophy.png",
