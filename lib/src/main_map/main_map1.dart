@@ -516,10 +516,10 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                                 height: 4,
                               ),
                               const Text(
-                                "Moe Aung",
+                                "Phyu Thant",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 17,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(

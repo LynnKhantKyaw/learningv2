@@ -71,10 +71,10 @@ class _MainMapSecondScreenState extends State<MainMapSecondScreen> {
                                 height: 4,
                               ),
                               const Text(
-                                "Moe Aung",
+                                "Phyu Thant",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 17,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
@@ -167,7 +167,7 @@ class _MainMapSecondScreenState extends State<MainMapSecondScreen> {
                             builder: (context) => const MainMapFirstScreen()));
                   });
                 },
-                child:Container(
+                child: Container(
                   margin: EdgeInsets.only(
                       top: 4, left: MediaQuery.of(context).size.width * 0.27),
                   decoration: shadowDecorationWithBorderColor(
