@@ -167,6 +167,7 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
                   ],
                 ),
               ),
+              
               Positioned(
                 left: folded ? 66 : 134,
                 top: MediaQuery.of(context).size.height * 0.43,
