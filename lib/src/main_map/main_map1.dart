@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:learning/src/learning_page/learning_page1.dart';
@@ -14,6 +16,7 @@ class MainMapFirstScreen extends StatefulWidget {
 }
 
 class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
+  bool folded = true;
   @override
   Widget build(BuildContext context) {
     final mqData = MediaQuery.of(context);
@@ -503,7 +506,7 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                         children: [
                           Image.asset(
                             "assets/images/frame1.png",
-                            width: 28,
+                            width: 24,
                           ),
                           const SizedBox(
                             width: 10,
@@ -552,52 +555,82 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                   ],
                 ),
               ),
+
               Positioned(
-                left: 0,
+                left: folded ? -70 : 0,
                 top: 90,
                 child: Stack(
                   children: [
                     Image.asset(
-                      "assets/images/panels_right.png",
+                      "assets/images/wooden_social.png",
                       height: MediaQuery.of(context).size.height * 0.6,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 22, left: 14),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            "assets/images/frame2.png",
-                            width: 28,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Image.asset(
-                            "assets/images/frame2.png",
-                            width: 28,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Image.asset(
-                            "assets/images/frame2.png",
-                            width: 28,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Image.asset(
-                            "assets/images/frame2.png",
-                            width: 28,
-                          ),
-                        ],
+                      padding: const EdgeInsets.only(left: 8, top: 12),
+                      child: Image.asset(
+                        "assets/images/paper_back.png",
+                        height: MediaQuery.of(context).size.height * 0.53,
+                      ),
+                    ),
+                    Positioned(
+                      left: folded ? 82 : 22,
+                      top: 24,
+                      child: Visibility(
+                        visible: folded,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              "assets/images/frame2.png",
+                              width: 24,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Image.asset(
+                              "assets/images/frame2.png",
+                              width: 24,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Image.asset(
+                              "assets/images/frame2.png",
+                              width: 24,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Image.asset(
+                              "assets/images/frame2.png",
+                              width: 24,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
+              Positioned(
+                left: folded ? 66 : 134,
+                top: MediaQuery.of(context).size.height * 0.43,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    log("Print");
+                    setState(() {
+                      folded = !folded;
+                    });
+                  },
+                  child: Image.asset(
+                    "assets/images/triangle.png",
+                    height: MediaQuery.of(context).size.height * 0.15,
+                  ),
+                ),
+              ),
+              
               BouncingWidget(
                 duration: const Duration(milliseconds: 400),
                 scaleFactor: 1.5,
@@ -611,19 +644,25 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                 },
                 child: Container(
                   margin: EdgeInsets.only(
-                      top: 4, left: MediaQuery.of(context).size.width * 0.27),
-                  decoration: shadowDecorationWithBorderColor(
-                      const Color.fromARGB(255, 45, 99, 48),
-                      const Color.fromARGB(255, 45, 99, 48),
-                      0),
-                  padding: const EdgeInsets.only(top: 4),
+                      top: 0, left: MediaQuery.of(context).size.width * 0.31),
+                  padding: const EdgeInsets.only(top: 0),
                   width: MediaQuery.of(context).size.width * 0.15,
-                  height: 60,
-                  child: const Text(
-                    "Developing and\nStrengthening\nFarmer Associations",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white, height: 1.3, fontSize: 12),
+                  height: 104,
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        "assets/images/mb1.png",
+                      ),
+                      // const Padding(
+                      //   padding: EdgeInsets.only(top: 20, left: 16),
+                      //   child: Text(
+                      //     "Developing and\nStrengthening\nFarmer Associations",
+                      //     textAlign: TextAlign.center,
+                      //     style: TextStyle(
+                      //         color: Colors.white, height: 1.3, fontSize: 10),
+                      //   ),
+                      // ),
+                    ],
                   ),
                 ),
               ),
@@ -640,48 +679,63 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                 },
                 child: Container(
                   margin: EdgeInsets.only(
-                      top: 4, left: MediaQuery.of(context).size.width * 0.58),
-                  decoration: shadowDecorationWithBorderColor(
-                      const Color.fromARGB(255, 45, 99, 48),
-                      const Color.fromARGB(255, 45, 99, 48),
-                      0),
-                  padding: const EdgeInsets.only(top: 12),
+                      top: 4, left: MediaQuery.of(context).size.width * 0.525),
+                  padding: const EdgeInsets.only(top: 0),
                   width: MediaQuery.of(context).size.width * 0.15,
-                  height: 60,
-                  child: const Text(
-                    "Substainable\nNatural Rubber",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white, height: 1.3, fontSize: 12),
+                  height: 104,
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        "assets/images/mb3.png",
+                      ),
+                      // const Padding(
+                      //   padding: EdgeInsets.only(top: 20, left: 16),
+                      //   child: Text(
+                      //     "Substainable \nNatural Rubber",
+                      //     textAlign: TextAlign.center,
+                      //     style: TextStyle(
+                      //         color: Colors.white, height: 1.3, fontSize: 10),
+                      //   ),
+                      // ),
+                    ],
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(
-                    top: 32, left: MediaQuery.of(context).size.width * 0.42),
-                decoration: shadowDecorationWithBorderColor(
-                    const Color(0xffe0e0e0), const Color(0xffe0e0e0), 0),
-                padding: const EdgeInsets.only(top: 17),
+                    top: 38, left: MediaQuery.of(context).size.width * 0.4),
+                padding: const EdgeInsets.only(top: 22),
                 width: MediaQuery.of(context).size.width * 0.16,
-                height: 60,
-                child: const Text(
-                  "စိုက်ပျိုးဂေဟစနစ်ဆိုင်ရာ \nအလေ့အထများ",
-                  textAlign: TextAlign.center,
-                  style:
-                      TextStyle(color: Colors.black, height: 1.3, fontSize: 12),
+                height: 86,
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      "assets/images/mb2.png",
+                      width: MediaQuery.of(context).size.width * 0.4,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 20, left: 20),
+                      child: Text(
+                        "စိုက်ပျိုးဂေဟစနစ်ဆိုင်ရာ \nအလေ့အထများ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white, height: 1.3, fontSize: 9),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Positioned(
-                left: MediaQuery.of(context).size.width * 0.4,
+                left: MediaQuery.of(context).size.width * 0.365,
                 top: 0,
                 child: Image.asset(
-                  "assets/images/blue_fabric.png",
-                  width: MediaQuery.of(context).size.width * 0.2,
+                  "assets/images/center_title.png",
+                  width: MediaQuery.of(context).size.width * 0.235,
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(
-                    top: 4, left: MediaQuery.of(context).size.width * 0.43),
+                    top: 4, left: MediaQuery.of(context).size.width * 0.41),
                 padding: const EdgeInsets.only(top: 12),
                 width: MediaQuery.of(context).size.width * 0.15,
                 height: 60,
@@ -699,20 +753,9 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                   duration: const Duration(milliseconds: 400),
                   scaleFactor: 1.5,
                   onPressed: () async {},
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        "assets/images/button_small.png",
-                        width: 60,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 16),
-                        child: Image.asset(
-                          "assets/images/ic_noti.png",
-                          width: 28,
-                        ),
-                      ),
-                    ],
+                  child: Image.asset(
+                    "assets/images/ic_noti.png",
+                    width: 56,
                   ),
                 ),
               ),
@@ -723,20 +766,9 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                   duration: const Duration(milliseconds: 400),
                   scaleFactor: 1.5,
                   onPressed: () async {},
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        "assets/images/button_small.png",
-                        width: 60,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 16),
-                        child: Image.asset(
-                          "assets/images/ic_menu.png",
-                          width: 28,
-                        ),
-                      ),
-                    ],
+                  child: Image.asset(
+                    "assets/images/ic_menu.png",
+                    width: 56,
                   ),
                 ),
               ),
@@ -747,20 +779,9 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                   duration: const Duration(milliseconds: 400),
                   scaleFactor: 1.5,
                   onPressed: () async {},
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        "assets/images/button_small.png",
-                        width: 60,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 16),
-                        child: Image.asset(
-                          "assets/images/ic_book.png",
-                          width: 28,
-                        ),
-                      ),
-                    ],
+                  child: Image.asset(
+                    "assets/images/ic_book.png",
+                    width: 56,
                   ),
                 ),
               ),
@@ -771,20 +792,9 @@ class _MainMapFirstScreenState extends State<MainMapFirstScreen> {
                   duration: const Duration(milliseconds: 400),
                   scaleFactor: 1.5,
                   onPressed: () async {},
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        "assets/images/button_small.png",
-                        width: 60,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 16),
-                        child: Image.asset(
-                          "assets/images/ic_media.png",
-                          width: 28,
-                        ),
-                      ),
-                    ],
+                  child: Image.asset(
+                    "assets/images/ic_media.png",
+                    width: 56,
                   ),
                 ),
               ),

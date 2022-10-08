@@ -14,6 +14,7 @@ class MainMapThirdScreen extends StatefulWidget {
 }
 
 class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
+  bool folded = true;
   @override
   Widget build(BuildContext context) {
     final mqData = MediaQuery.of(context);
@@ -42,6 +43,7 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
               ),
 
               //Stable
+              //Stable
               Positioned(
                 left: 20,
                 top: 8,
@@ -58,7 +60,7 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
                         children: [
                           Image.asset(
                             "assets/images/frame1.png",
-                            width: 28,
+                            width: 24,
                           ),
                           const SizedBox(
                             width: 10,
@@ -77,7 +79,6 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
-                              
                               Row(
                                 children: [
                                   Image.asset("assets/images/ic_trophy.png",
@@ -108,50 +109,78 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
                   ],
                 ),
               ),
+
               Positioned(
-                left: 0,
+                left: folded ? -70 : 0,
                 top: 90,
                 child: Stack(
                   children: [
                     Image.asset(
-                      "assets/images/panels_right.png",
+                      "assets/images/wooden_social.png",
                       height: MediaQuery.of(context).size.height * 0.6,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 22, left: 14),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            "assets/images/frame2.png",
-                            width: 28,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Image.asset(
-                            "assets/images/frame2.png",
-                            width: 28,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Image.asset(
-                            "assets/images/frame2.png",
-                            width: 28,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Image.asset(
-                            "assets/images/frame2.png",
-                            width: 28,
-                          ),
-                        ],
+                      padding: const EdgeInsets.only(left: 8, top: 12),
+                      child: Image.asset(
+                        "assets/images/paper_back.png",
+                        height: MediaQuery.of(context).size.height * 0.53,
+                      ),
+                    ),
+                    Positioned(
+                      left: folded ? 82 : 22,
+                      top: 24,
+                      child: Visibility(
+                        visible: folded,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              "assets/images/frame2.png",
+                              width: 24,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Image.asset(
+                              "assets/images/frame2.png",
+                              width: 24,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Image.asset(
+                              "assets/images/frame2.png",
+                              width: 24,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Image.asset(
+                              "assets/images/frame2.png",
+                              width: 24,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
+                ),
+              ),
+              Positioned(
+                left: folded ? 66 : 134,
+                top: MediaQuery.of(context).size.height * 0.43,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    setState(() {
+                      folded = !folded;
+                    });
+                  },
+                  child: Image.asset(
+                    "assets/images/triangle.png",
+                    height: MediaQuery.of(context).size.height * 0.15,
+                  ),
                 ),
               ),
               BouncingWidget(
@@ -231,7 +260,7 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
                 left: MediaQuery.of(context).size.width * 0.4,
                 top: 0,
                 child: Image.asset(
-                  "assets/images/blue_fabric.png",
+                  "assets/images/center_title.png",
                   width: MediaQuery.of(context).size.width * 0.2,
                 ),
               ),
@@ -255,20 +284,9 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
                   duration: const Duration(milliseconds: 400),
                   scaleFactor: 1.5,
                   onPressed: () async {},
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        "assets/images/button_small.png",
-                        width: 60,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 16),
-                        child: Image.asset(
-                          "assets/images/ic_noti.png",
-                          width: 28,
-                        ),
-                      ),
-                    ],
+                  child: Image.asset(
+                    "assets/images/ic_noti.png",
+                    width: 56,
                   ),
                 ),
               ),
@@ -279,20 +297,9 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
                   duration: const Duration(milliseconds: 400),
                   scaleFactor: 1.5,
                   onPressed: () async {},
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        "assets/images/button_small.png",
-                        width: 60,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 16),
-                        child: Image.asset(
-                          "assets/images/ic_menu.png",
-                          width: 28,
-                        ),
-                      ),
-                    ],
+                  child: Image.asset(
+                    "assets/images/ic_menu.png",
+                    width: 56,
                   ),
                 ),
               ),
@@ -303,20 +310,9 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
                   duration: const Duration(milliseconds: 400),
                   scaleFactor: 1.5,
                   onPressed: () async {},
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        "assets/images/button_small.png",
-                        width: 60,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 16),
-                        child: Image.asset(
-                          "assets/images/ic_book.png",
-                          width: 28,
-                        ),
-                      ),
-                    ],
+                  child: Image.asset(
+                    "assets/images/ic_book.png",
+                    width: 56,
                   ),
                 ),
               ),
@@ -327,20 +323,9 @@ class _MainMapThirdScreenState extends State<MainMapThirdScreen> {
                   duration: const Duration(milliseconds: 400),
                   scaleFactor: 1.5,
                   onPressed: () async {},
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        "assets/images/button_small.png",
-                        width: 60,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 16),
-                        child: Image.asset(
-                          "assets/images/ic_media.png",
-                          width: 28,
-                        ),
-                      ),
-                    ],
+                  child: Image.asset(
+                    "assets/images/ic_media.png",
+                    width: 56,
                   ),
                 ),
               ),
